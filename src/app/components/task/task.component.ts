@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Itask } from 'src/app/models/interfaces/task.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Itask, Levels } from 'src/app/models/interfaces/task.interface';
 
 @Component({
   selector: 'app-task',
@@ -8,7 +8,10 @@ import { Itask } from 'src/app/models/interfaces/task.interface';
 })
 export class TaskComponent implements OnInit {
 
+
   @Input() task: Itask | undefined;
+  @Output() delete: EventEmitter<Itask> = new EventEmitter<Itask>();
+
 
   constructor() { }
 
@@ -17,7 +20,8 @@ export class TaskComponent implements OnInit {
 
 
   deleteTask() {
-    console.log("Eliminar tarea :V")
+// Notificamos al componente superior la terea a eliminar
+    this.delete.emit(this.task);
   }
 
 }
